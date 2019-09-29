@@ -4,6 +4,9 @@ import './BusinessList.css';
 //Components
 import Business from '../Business/Business';
 
+/**
+ * A list of business tiles
+ */
 class BusinessList extends React.Component{
     render(){
         return (
