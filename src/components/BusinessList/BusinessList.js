@@ -13,8 +13,8 @@ class BusinessList extends React.Component{
             <div className="BusinessList">
                 {
                     // Pass through all fetched businesses to render individually
-                    this.props.businessList.map(item => {
-                        return <Business business={item} />
+                    this.props.businessList.map((item,idx) => {
+                        return <Business key={idx} business={item} />
                     })
                 }
             </div>
