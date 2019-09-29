@@ -5,6 +5,10 @@ import './App.css';
 import BusinessList from '../BusinessList/BusinessList';
 import SearchBar from '../SearchBar/SearchBar';
 
+/**
+ * DemoData for now..
+ * @todo: Create a businesses based on search results.
+ */
 const business = {
   imageSrc: 'https://s3.amazonaws.com/codecademy-content/programs/react/ravenous/pizza.jpg',
   name: 'MarginOtto Pizzeria',
@@ -17,16 +21,27 @@ const business = {
   reviewCount: 90
 }
 
+/**
+ * DemoData for now..
+ * @todo: Create a list of businesses based on search results.
+ */
 const businessArray = [business,business,business,business,business,business];
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Ravenous</h1>
-      <SearchBar />
-      <BusinessList businessList = {businessArray} />
-    </div>
-  );
+class App extends React.Component {
+
+  searchYelp(term, location, sortBy){
+    console.log(`Searching Yelp with ${term}, ${location}, ${sortBy}`)
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Ravenous</h1>
+        <SearchBar searchYelp = {this.searchYelp} />
+        <BusinessList businessList={businessArray} />
+      </div>
+    );
+  }
 }
 
 export default App;
