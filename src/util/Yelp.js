@@ -1,16 +1,16 @@
 const apiKey =
-  'CD0LL5y-JH6YRVZszOObO_aHkcog5UJhrKzkK8czQvjMvTOt8w9H8e95eVxutNjZ7sS7-d6ASfXjxcYd_91bSmYpyG19c6Q6UrhGfUwfWc5Pndx9sTsE5e9XPiWXXXYx'
-const businessSearchUrl = "https://api.yelp.com/v3/businesses/search?"
-const corsAnywhereUrl = "https://cors-anywhere.herokuapp.com/"
+  "CD0LL5y-JH6YRVZszOObO_aHkcog5UJhrKzkK8czQvjMvTOt8w9H8e95eVxutNjZ7sS7-d6ASfXjxcYd_91bSmYpyG19c6Q6UrhGfUwfWc5Pndx9sTsE5e9XPiWXXXYx";
+const businessSearchUrl = "https://api.yelp.com/v3/businesses/search?";
+const corsAnywhereUrl = "https://cors-anywhere.herokuapp.com/";
 const headers = {
   headers: {
     Authorization: `Bearer ${apiKey}`
   }
-}
+};
 
-const Yelp = {}
+const Yelp = {};
 
-function search (term, location, sortBy) {
+function search(term, location, sortBy) {
   return fetch(
     corsAnywhereUrl +
       businessSearchUrl +
@@ -21,7 +21,7 @@ function search (term, location, sortBy) {
     .then(jsonResponse => {
       // response successful
       if (jsonResponse.business) {
-        return jsonResponse.businesses.map()
+        return jsonResponse.businesses.map();
       }
-    })
+    });
 }

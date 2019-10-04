@@ -1,12 +1,12 @@
-import React from 'react'
-import './Business.css'
+import React from "react";
+import "./Business.css";
 
 /**
  * Renders individual businesses as tiles
  */
 class Business extends React.Component {
-  render () {
-    const business = this.props.business
+  render() {
+    const business = this.props.business;
     return (
       <div className="Business">
         <div className="image-container">
@@ -28,8 +28,8 @@ class Business extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default Business
+export default Business;

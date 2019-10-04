@@ -1,26 +1,26 @@
 /* eslint-disable space-before-function-paren */
-import React from 'react'
-import './SearchBar.css'
+import React from "react";
+import "./SearchBar.css";
 
 class SearchBar extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-      term: '',
-      location: '',
-      sortBy: 'best_match'
-    }
+      term: "",
+      location: "",
+      sortBy: "best_match"
+    };
 
     this.sortByOptions = {
-      'Best Match': 'best_match',
-      'Highest Rated': 'rating',
-      'Most Reviewed': 'review_count'
-    }
+      "Best Match": "best_match",
+      "Highest Rated": "rating",
+      "Most Reviewed": "review_count"
+    };
 
-    this.handleTermChange = this.handleTermChange.bind(this)
-    this.handleLocationChange = this.handleLocationChange.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
+    this.handleTermChange = this.handleTermChange.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   /**
@@ -31,9 +31,9 @@ class SearchBar extends React.Component {
    */
   getSortByClass(sortByOption) {
     if (this.state.sortBy === sortByOption) {
-      return 'active'
+      return "active";
     } else {
-      return ''
+      return "";
     }
   }
 
@@ -43,7 +43,7 @@ class SearchBar extends React.Component {
    * @param {string} sortByOption
    */
   handleSortByChange(sortByOption) {
-    this.setState({ sortBy: sortByOption })
+    this.setState({ sortBy: sortByOption });
   }
 
   /**
@@ -52,7 +52,7 @@ class SearchBar extends React.Component {
    * @param {Event} event
    */
   handleTermChange(event) {
-    this.setState({ term: event.target.value })
+    this.setState({ term: event.target.value });
   }
 
   /**
@@ -61,7 +61,7 @@ class SearchBar extends React.Component {
    * @param {Event} event
    */
   handleLocationChange(event) {
-    this.setState({ location: event.target.value })
+    this.setState({ location: event.target.value });
   }
 
   /**
@@ -77,13 +77,13 @@ class SearchBar extends React.Component {
       this.state.term,
       this.state.location,
       this.state.sortBy
-    )
-    event.preventDefault()
+    );
+    event.preventDefault();
   }
 
   renderSortByOptions() {
     return Object.keys(this.sortByOptions).map(sortByOption => {
-      const sortByOptionValue = this.sortByOptions[sortByOption]
+      const sortByOptionValue = this.sortByOptions[sortByOption];
 
       return (
         <li
@@ -93,8 +93,8 @@ class SearchBar extends React.Component {
         >
           {sortByOption}
         </li>
-      )
-    })
+      );
+    });
   }
 
   render() {
@@ -114,8 +114,8 @@ class SearchBar extends React.Component {
           <a>Let's Go</a>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default SearchBar
+export default SearchBar;
