@@ -13,12 +13,8 @@ class BusinessList extends React.Component {
     return (
       <div className="BusinessList">
         {// Pass through all fetched businesses to render individually
-        this.props.businessList.map((item, idx) => {
-          /**
-           * @todo: replace 'idx' with a truely unique value. Using IDX can cause issues
-           * https://stackoverflow.com/questions/28329382/understanding-unique-keys-for-array-children-in-react-js
-           */
-          return <Business key={idx} business={item} />;
+        this.props.businessList.map(item => {
+          return <Business key={item.id} business={item} />;
         })}
       </div>
     );

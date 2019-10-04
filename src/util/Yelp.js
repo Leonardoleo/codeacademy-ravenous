@@ -27,7 +27,7 @@ const Yelp = {
       .then(response => response.json())
       .then(jsonResponse => {
         // response successful
-        if (jsonResponse.business) {
+        if (jsonResponse.businesses) {
           return jsonResponse.businesses.map(business => {
             return {
               id: business.id,
@@ -39,7 +39,7 @@ const Yelp = {
                 state: business.location.state,
                 zipCode: business.location.zip_code
               },
-              category: business.catagories.title,
+              category: business.categories.title,
               rating: business.rating,
               reviewCount: business.review_count
             };
@@ -49,7 +49,4 @@ const Yelp = {
   }
 };
 
-console.log(Yelp.search('food','sydney'));
-
 export default Yelp;
-
