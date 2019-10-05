@@ -8,6 +8,16 @@ const headers = {
   }
 };
 
+/**
+ * A generic response to provide to the user when unexpecte things go wrong
+ */
+const genericErrorResponse = {
+  error: {
+    code: "GENERIC",
+    description: "Could not execute search, Please try again."
+  }
+};
+
 const Yelp = {
   /**
    * Search the Yelp "Business Search" endpoint
@@ -26,7 +36,7 @@ const Yelp = {
     )
       .then(response => response.json())
       .then(jsonResponse => {
-        // response successful
+        // at least one business = response successful
         if (jsonResponse.businesses) {
           return jsonResponse.businesses.map(business => {
             return {
@@ -44,6 +54,14 @@ const Yelp = {
               reviewCount: business.review_count
             };
           });
+          /**
+           * Re-use Yelp error messages & Pass through to the client.
+           * @todo Implement a better framework to handle Yelp errors
+           */
+        } else if (jsonResponse.error) {
+          return jsonResponse;
+        } else {
+          return genericErrorResponse;
         }
       });
   }
