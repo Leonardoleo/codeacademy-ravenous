@@ -8,6 +8,24 @@ const headers = {
   }
 };
 
+/**
+ * A generic response to provide to the user when unexpecte things go wrong
+ */
+const genericError = {
+  error: {
+    code: "GENERIC",
+    description: "Could not execute search, Please try again."
+  }
+};
+
+const noBusinessesFoundError = {
+  error: {
+    code: "NO_BUSINESSES_FOUND",
+    description:
+      "No businesses found, try specifying another business name or location."
+  }
+};
+
 const Yelp = {
   /**
    * Search the Yelp "Business Search" endpoint
@@ -26,8 +44,13 @@ const Yelp = {
     )
       .then(response => response.json())
       .then(jsonResponse => {
-        // response successful
+        // Business array present = response successful
         if (jsonResponse.businesses) {
+          // Handle no businesses retrieved during search
+          if (jsonResponse.total === 0) {
+            return noBusinessesFoundError;
+          }
+
           return jsonResponse.businesses.map(business => {
             return {
               id: business.id,
@@ -44,6 +67,14 @@ const Yelp = {
               reviewCount: business.review_count
             };
           });
+          /**
+           * Re-use Yelp error messages & Pass through to the client.
+           * @todo Implement a better framework to handle Yelp errors
+           */
+        } else if (jsonResponse.error) {
+          return jsonResponse;
+        } else {
+          return genericError;
         }
       });
   }

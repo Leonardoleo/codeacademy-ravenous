@@ -5,13 +5,16 @@ import "./App.css";
 import BusinessList from "../BusinessList/BusinessList";
 import SearchBar from "../SearchBar/SearchBar";
 import Yelp from "../../util/Yelp";
+import SearchError from "../SearchError/SearchError";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      businesses: []
+      businesses: [],
+      isError: false,
+      error: {}
     };
 
     this.searchYelp = this.searchYelp.bind(this);
@@ -19,16 +22,26 @@ class App extends React.Component {
 
   searchYelp(term, location, sortBy) {
     Yelp.search(term, location, sortBy).then(businesses => {
-      this.setState({ businesses: businesses });
+      if (businesses.error) {
+        this.setState({ isError: true, error: businesses.error });
+      } else {
+        this.setState({ isError: false, error: {} });
+        this.setState({ businesses: businesses });
+      }
     });
   }
 
   render() {
+    const isError = this.state.isError;
     return (
       <div className="App">
         <h1>Ravenous</h1>
         <SearchBar searchYelp={this.searchYelp} />
-        <BusinessList businessList={this.state.businesses} />
+        {isError ? (
+          <SearchError error={this.state.error} />
+        ) : (
+          <BusinessList businessList={this.state.businesses} />
+        )}
       </div>
     );
   }
