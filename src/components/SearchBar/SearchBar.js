@@ -1,5 +1,6 @@
 import React from "react";
 import "./SearchBar.css";
+import PropTypes from "prop-types";
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class SearchBar extends React.Component {
     this.handleTermChange = this.handleTermChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleEnterKeyPressed = this.handleEnterKeyPressed.bind(this);
   }
 
   /**
@@ -37,12 +39,27 @@ class SearchBar extends React.Component {
   }
 
   /**
+   * Executes a Yelp search utilising the following state values
+   * - this.state.term
+   * - this.state.location
+   * - this.state.sortBy
+   */
+  searchYelp() {
+    this.props.searchYelp(
+      this.state.term,
+      this.state.location,
+      this.state.sortBy
+    );
+  }
+
+  /**
    * Modifies the sortBy state of the SearchBar to the value of sortByOption
    *
    * @param {string} sortByOption
    */
   handleSortByChange(sortByOption) {
     this.setState({ sortBy: sortByOption });
+    this.searchYelp();
   }
 
   /**
@@ -64,20 +81,25 @@ class SearchBar extends React.Component {
   }
 
   /**
-   * Executes a Yelp search utilising the following state values
-   * - this.state.term
-   * - this.state.location
-   * - this.state.sortBy
+   * Executes a Yelp search on Button press
    *
    * @param {Event} event
    */
   handleSearch(event) {
-    this.props.searchYelp(
-      this.state.term,
-      this.state.location,
-      this.state.sortBy
-    );
+    this.searchYelp();
     event.preventDefault();
+  }
+
+  /**
+   * Executes a Yelp search on Enter Key press
+   *
+   * @param {Event} event
+   */
+  handleEnterKeyPressed(event) {
+    if (event.key === "Enter") {
+      console.log("enter key was pressed :)");
+      this.searchYelp();
+    }
   }
 
   renderSortByOptions() {
@@ -106,15 +128,28 @@ class SearchBar extends React.Component {
           <input
             placeholder="Search Businesses"
             onChange={this.handleTermChange}
+            onKeyPress={this.handleEnterKeyPressed}
           />
-          <input placeholder="Where?" onChange={this.handleLocationChange} />
+          <input
+            placeholder="Where?"
+            onChange={this.handleLocationChange}
+            onKeyPress={this.handleEnterKeyPressed}
+          />
         </div>
         <div className="SearchBar-submit" onClick={this.handleSearch}>
-          <a>Let's Go</a>
+          {/**
+           * @todo replace <a> with button to fix accessibilty issues
+           * https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-is-valid.md
+           */}
+          <a>Let&apos;s Go</a>
         </div>
       </div>
     );
   }
 }
+
+SearchBar.propTypes = {
+  searchYelp: PropTypes.func.isRequired
+};
 
 export default SearchBar;
