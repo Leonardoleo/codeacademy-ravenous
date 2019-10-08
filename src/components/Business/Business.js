@@ -1,5 +1,6 @@
 import React from "react";
 import "./Business.css";
+import PropTypes from "prop-types";
 
 /**
  * Renders individual businesses as tiles
@@ -31,5 +32,22 @@ class Business extends React.Component {
     );
   }
 }
+
+Business.propTypes = {
+  business: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    imageSrc: PropTypes.string,
+    location: PropTypes.shape({
+      address: PropTypes.string,
+      city: PropTypes.string,
+      state: PropTypes.string,
+      zipCode: PropTypes.string
+    }),
+    category: PropTypes.string,
+    rating: PropTypes.number,
+    reviewCount: PropTypes.number
+  }).isRequired
+};
 
 export default Business;
