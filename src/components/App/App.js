@@ -21,6 +21,7 @@ class App extends React.Component {
   }
 
   searchYelp(term, location, sortBy) {
+    this.setState({ businesses: []});
     Yelp.search(term, location, sortBy).then(businesses => {
       if (businesses.error) {
         this.setState({ isError: true, error: businesses.error });
