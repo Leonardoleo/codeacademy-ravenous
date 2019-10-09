@@ -2,6 +2,8 @@ import React from "react";
 import "./Business.css";
 import PropTypes from "prop-types";
 
+const googleMapsURL = "https://www.google.com/maps/search/?api=1&query=";
+
 /**
  * Renders individual businesses as tiles
  */
@@ -11,16 +13,29 @@ class Business extends React.Component {
     return (
       <div className="Business">
         <div className="image-container">
-          <img src={business.imageSrc} alt="" />
+          <a href={business.url} target="_blank" rel="noopener noreferrer">
+            <img src={business.imageSrc} alt="" />
+          </a>
         </div>
         <h2>{business.name}</h2>
         <div className="Business-information">
           <div className="Business-address">
-            <p>{business.location.address}</p>
-            <p>{business.location.city}</p>
-            <p>
-              {business.location.state} {business.location.zipCode}
-            </p>
+            <a
+              href={
+                googleMapsURL +
+                business.name.split(" ").join("+") +
+                "+" +
+                business.location.city.split(" ").join("+")
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <p>{business.location.address}</p>
+              <p>{business.location.city}</p>
+              <p>
+                {business.location.state} {business.location.zipCode}
+              </p>
+            </a>
           </div>
           <div className="Business-reviews">
             <h3>{business.category}</h3>
@@ -46,7 +61,8 @@ Business.propTypes = {
     }),
     category: PropTypes.string,
     rating: PropTypes.number,
-    reviewCount: PropTypes.number
+    reviewCount: PropTypes.number,
+    url: PropTypes.string
   }).isRequired
 };
 
