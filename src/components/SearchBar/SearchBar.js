@@ -97,7 +97,6 @@ class SearchBar extends React.Component {
    */
   handleEnterKeyPressed(event) {
     if (event.key === "Enter") {
-      console.log("enter key was pressed :)");
       this.searchYelp();
     }
   }
