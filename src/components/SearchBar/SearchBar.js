@@ -136,11 +136,7 @@ class SearchBar extends React.Component {
           />
         </div>
         <div className="SearchBar-submit" onClick={this.handleSearch}>
-          {/**
-           * @todo replace <a> with button to fix accessibilty issues
-           * https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-is-valid.md
-           */}
-          <a>Let&apos;s Go</a>
+          <button>Let&apos;s Go</button>
         </div>
       </div>
     );
